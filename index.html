@@ -580,7 +580,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('close-welcome-modal').addEventListener('click', function() {
         document.getElementById('welcome-modal').style.display = 'none';
         document.body.style.overflow = '';
-        
+       
     });
 });
         // Mobile Menu Toggle
@@ -972,11 +972,11 @@ document.getElementById('protected-phone').addEventListener('click', function() 
 });
 
     </script>
-    <!-- Welcome Modal (nên đặt ở cuối, ngay trước </body>) -->
+   <!-- Welcome Modal (sửa lại màu chữ) -->
 <div id="welcome-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50" style="display: none;">
   <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 max-w-sm w-full text-center">
-    <h2 class="text-2xl font-bold mb-4" data-lang data-lang-vi="Chào mừng!" data-lang-en="Welcome!">Chào mừng!</h2>
-    <p class="mb-6" data-lang data-lang-vi="Cảm ơn bạn đã ghé thăm trang web của Tuấn Trần." data-lang-en="Thank you for visiting Tuan Tran's website.">
+    <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white" data-lang data-lang-vi="Chào mừng!" data-lang-en="Welcome!">Chào mừng!</h2>
+    <p class="mb-6 text-gray-700 dark:text-white" data-lang data-lang-vi="Cảm ơn bạn đã ghé thăm trang web của Tuấn Trần." data-lang-en="Thank you for visiting Tuan Tran's website.">
       Cảm ơn bạn đã ghé thăm trang web của Tuấn Trần.
     </p>
     <button id="close-welcome-modal" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded transition" data-lang data-lang-vi="Bắt đầu khám phá" data-lang-en="Start exploring">Bắt đầu khám phá</button>
