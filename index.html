@@ -157,6 +157,14 @@
 .dark .form-error { background-color: #7f1d1d !important; color: #fee2e2 !important; }
 .dark .form-success { background-color: #14532d !important; color: #bbf7d0 !important; }
     </style>
+    <!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-QF78084XFZ');
+</script>
 </head>
 <body class="bg-gray-50 text-gray-800">
     <!-- Header Navigation -->
@@ -930,6 +938,15 @@
             behavior: 'smooth' // Tạo hiệu ứng cuộn mượt
         });
     });
+    // Bảo vệ email và số điện thoại
+document.getElementById('protected-email').addEventListener('click', function() {
+    this.textContent = 'tt1068996@gmail.com';
+    this.setAttribute('aria-label', 'Email: tt1068996@gmail.com');
+});
+document.getElementById('protected-phone').addEventListener('click', function() {
+    this.textContent = '0384072314';
+    this.setAttribute('aria-label', 'Phone: 0384072314');
+});
     </script>
 </body>
 </html>
