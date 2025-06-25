@@ -983,13 +983,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     // Cuộn mượt lên đầu trang khi nhấn nút
-    backToTop.addEventListener('click', function(e) {
-        e.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // Tạo hiệu ứng cuộn mượt
+   document.addEventListener('DOMContentLoaded', function() {
+    var logo = document.querySelector('a.text-2xl.font-bold.text-blue-600');
+    if (logo) {
+        logo.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    });
+    }
+});
     // Bảo vệ email và số điện thoại
 document.getElementById('protected-email').addEventListener('click', function() {
     this.textContent = 'tt1068996@gmail.com';
