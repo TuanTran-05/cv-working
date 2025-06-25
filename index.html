@@ -251,53 +251,62 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-pattern py-20" role="banner">
-        <div class="container mx-auto px-6 flex mobile-stack items-center">
-            <div class="w-full md:w-1/2">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4" data-lang data-lang-vi="Xin chào, tôi là <span class='text-blue-600'>Tuấn</span>" data-lang-en="Hello, I'm <span class='text-blue-600'>Tuan</span>">Xin chào, tôi là <span class="text-blue-600">Tuấn</span></h1>
-                <p class="text-xl text-gray-600 mb-8" data-lang data-lang-vi="Sinh viên ngành: Mạng máy tính & Truyền thông dữ liệu" data-lang-en="Major: Computer Networking & Data Communications">Sinh viên ngành: Mạng máy tính & Truyền thông dữ liệu</p>
-                <div class="flex space-x-4">
-                    <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition" data-lang data-lang-vi="Liên Hệ" data-lang-en="Contact">Liên Hệ</a>
-                    <a href="tuantran02122005@gmail.com.pdf" class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg transition" data-lang data-lang-vi="Tải CV" data-lang-en="Download CV">Tải CV</a>
-                </div>
-            </div>
-            <div class="w-full md:w-1/2 flex justify-center mt-10 md:mt-0">
-                <img src="images/avt.jpg" alt="Ảnh đại diện của Trần Anh Tuấn" class="rounded-full w-64 h-64 object-cover shadow-xl" data-lang-alt-vi="Ảnh đại diện của Trần Anh Tuấn" data-lang-alt-en="Profile picture of Tuan Tran">
-            </div>
-        </div>
-    </section>
+   <!-- Hero Section -->
+<section class="relative py-20 bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#334155] text-white overflow-hidden">
+  <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+    <div class="w-full md:w-1/2 z-10">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 flex items-center gap-3">
+        <span class="inline-block animate-pulse text-blue-400">👨‍💻</span>
+        <span id="typewriter" class="whitespace-nowrap">Xin chào, tôi là <span class="text-blue-400">Tuấn</span></span>
+      </h1>
+      <p class="text-xl text-blue-200 mb-8">Sinh viên ngành: Mạng máy tính & Truyền thông dữ liệu</p>
+      <div class="flex space-x-4">
+        <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-lg transition font-semibold">Liên Hệ</a>
+        <a href="cv.pdf" download class="border border-blue-400 text-blue-400 hover:bg-blue-900 px-6 py-3 rounded-lg transition font-semibold">Tải CV</a>
+      </div>
+    </div>
+    <div class="w-full md:w-1/2 flex justify-center mt-10 md:mt-0 z-10">
+      <div class="relative">
+        <img src="images/avt.jpg" alt="Ảnh đại diện của Trần Anh Tuấn" class="rounded-full w-64 h-64 object-cover shadow-2xl border-4 border-blue-500 ring-4 ring-blue-400/30">
+        <div class="absolute inset-0 rounded-full border-4 border-blue-500 animate-pulse" style="filter: blur(8px);"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Hiệu ứng background glow -->
+  <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-500 opacity-20 rounded-full blur-3xl"></div>
+  <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-purple-500 opacity-20 rounded-full blur-3xl"></div>
+</section>
 
     <!-- About Section -->
-    <section id="about" class="py-16 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold mb-12 text-center" data-lang data-lang-vi="Giới Thiệu" data-lang-en="About">Giới Thiệu</h2>
-            <div class="max-w-3xl mx-auto">
-                <p class="text-lg mb-6" data-lang data-lang-vi="Xin chào! Tôi là Tuấn, một sinh viên ngành Mạng máy tính và truyền thông dữ liệu. Tôi đam mê với những trang web hiện đại và nhiều tính năng."
-    data-lang-en="Hello! I'm Tuan, a student majoring in Computer Networking and Data Communications. I'm passionate about modern, feature-rich websites.">
-    Xin chào! Tôi là Tuấn, một sinh viên ngành Mạng máy tính và truyền thông dữ liệu. Tôi đam mê với những trang web hiện đại và nhiều tính năng.
-</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4" data-lang data-lang-vi="Thông Tin Cá Nhân" data-lang-en="Personal Information">Thông Tin Cá Nhân</h3>
-                        <ul class="space-y-2">
-                            <li><strong data-lang data-lang-vi="Ngày sinh:" data-lang-en="Date of Birth:">Ngày sinh:</strong> 02/12/2005</li>
-                            <li><strong data-lang data-lang-vi="Địa chỉ:" data-lang-en="Address:">Địa chỉ:</strong> Long Hòa,Dầu Tiếng, Bình Dương</li>
-                            <li><strong data-lang data-lang-vi="Email:" data-lang-en="Email:">Email:</strong> <a href="mailto:tt1068996@gmail.com" class="text-blue-600 hover:underline">tt1068996@gmail.com</a></li>
-                            <li><strong data-lang data-lang-vi="Điện thoại:" data-lang-en="Phone:">Điện thoại:</strong> <a href="tel:0384072314" class="text-blue-600 hover:underline">0384072314</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4" data-lang data-lang-vi="Mục Tiêu Nghề Nghiệp" data-lang-en="Career Goals">Mục Tiêu Nghề Nghiệp</h3>
-                        <p data-lang data-lang-vi="Tôi mong muốn trở thành một kỹ sư mạng chuyên nghiệp, có khả năng thiết kế, vận hành và bảo trì hệ thống mạng một cách hiệu quả và an toàn. Trong ngắn hạn, tôi hướng đến việc tích lũy kinh nghiệm thực tế, nâng cao kỹ năng chuyên môn và đạt được các chứng chỉ như CCNA/CCNP. Về lâu dài, tôi kỳ vọng được tham gia vào các dự án hạ tầng mạng quy mô lớn, góp phần xây dựng hệ thống công nghệ thông tin ổn định và hiện đại cho doanh nghiệp."
-                            data-lang-en="I aspire to become a professional network engineer, capable of designing, operating, and maintaining network systems efficiently and securely. In the short term, I aim to gain practical experience, enhance my professional skills, and obtain certifications like CCNA/CCNP. In the long term, I hope to participate in large-scale network infrastructure projects, contributing to building stable and modern IT systems for businesses.">
-                            Tôi mong muốn trở thành một kỹ sư mạng chuyên nghiệp, có khả năng thiết kế, vận hành và bảo trì hệ thống mạng một cách hiệu quả và an toàn. Trong ngắn hạn, tôi hướng đến việc tích lũy kinh nghiệm thực tế, nâng cao kỹ năng chuyên môn và đạt được các chứng chỉ như CCNA/CCNP. Về lâu dài, tôi kỳ vọng được tham gia vào các dự án hạ tầng mạng quy mô lớn, góp phần xây dựng hệ thống công nghệ thông tin ổn định và hiện đại cho doanh nghiệp.
-                        </p>
-                    </div>
-                </div>
-            </div>
+  <section id="about" class="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+  <div class="container mx-auto px-6">
+    <div class="max-w-3xl mx-auto bg-gray-800 bg-opacity-80 rounded-2xl shadow-2xl p-10">
+      <h2 class="text-3xl font-bold mb-8 text-center flex items-center justify-center gap-2">
+        <i class="fas fa-user-circle text-blue-400"></i> Giới Thiệu
+      </h2>
+      <p class="text-lg mb-8 text-blue-100 text-center">
+        Xin chào! Tôi là Tuấn, sinh viên ngành Mạng máy tính và truyền thông dữ liệu. Tôi đam mê với những trang web hiện đại, bảo mật và sáng tạo.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold mb-4 flex items-center gap-2"><i class="fas fa-id-card text-blue-400"></i> Thông Tin Cá Nhân</h3>
+          <ul class="space-y-2 text-blue-100">
+            <li><strong>Ngày sinh:</strong> 02/12/2005</li>
+            <li><strong>Địa chỉ:</strong> Long Hòa, Dầu Tiếng, Bình Dương</li>
+            <li><strong>Email:</strong> <a href="mailto:tt1068996@gmail.com" class="text-blue-400 hover:underline">tt1068996@gmail.com</a></li>
+            <li><strong>Điện thoại:</strong> <a href="tel:0384072314" class="text-blue-400 hover:underline">0384072314</a></li>
+          </ul>
         </div>
-    </section>
+        <div>
+          <h3 class="text-xl font-semibold mb-4 flex items-center gap-2"><i class="fas fa-bullseye text-blue-400"></i> Mục Tiêu Nghề Nghiệp</h3>
+          <p class="text-blue-100">
+            Tôi mong muốn trở thành kỹ sư mạng chuyên nghiệp, có khả năng thiết kế, vận hành và bảo trì hệ thống mạng hiệu quả, an toàn. Hướng đến các chứng chỉ quốc tế như CCNA/CCNP và tham gia các dự án lớn về hạ tầng mạng.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- Education Section -->
     <section id="education" class="py-16 bg-white">
@@ -329,82 +338,83 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold mb-12 text-center" data-lang data-lang-vi="Kỹ Năng" data-lang-en="Skills">Kỹ Năng</h2>
-            
-            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Technical Skills -->
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 class="text-xl font-semibold mb-4" data-lang data-lang-vi="Kỹ Năng Kỹ Thuật" data-lang-en="Technical Skills">Kỹ Năng Kỹ Thuật</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span data-lang data-lang-vi="Cấu hình và quản trị thiết bị mạng" data-lang-en="Network device configuration and management">Cấu hình và quản trị thiết bị mạng</span>
-                                <span>80%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2.5" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span data-lang data-lang-vi="Giám sát và xử lý sự cố mạng" data-lang-en="Network monitoring and troubleshooting">Giám sát và xử lý sự cố mạng</span>
-                                <span>75%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2.5" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 75%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span data-lang data-lang-vi="Bảo mật mạng" data-lang-en="Network security">Bảo mật mạng</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2.5" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 90%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Soft Skills -->
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 class="text-xl font-semibold mb-4" data-lang data-lang-vi="Kỹ Năng Mềm" data-lang-en="Soft Skills">Kỹ Năng Mềm</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full" data-lang data-lang-vi="Giao tiếp" data-lang-en="Communication">Giao tiếp</span>
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full" data-lang data-lang-vi="Làm việc nhóm" data-lang-en="Teamwork">Làm việc nhóm</span>
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full" data-lang data-lang-vi="Giải quyết vấn đề" data-lang-en="Problem-solving">Giải quyết vấn đề</span>
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full" data-lang data-lang-vi="Quản lý thời gian" data-lang-en="Time management">Quản lý thời gian</span>
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full" data-lang data-lang-vi="Lãnh đạo" data-lang-en="Leadership">Lãnh đạo</span>
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full" data-lang data-lang-vi="Sáng tạo" data-lang-en="Creativity">Sáng tạo</span>
-                    </div>
-                    
-                    <h3 class="text-xl font-semibold mt-6 mb-4" data-lang data-lang-vi="Ngôn Ngữ" data-lang-en="Languages">Ngôn Ngữ</h3>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span data-lang data-lang-vi="Tiếng Việt" data-lang-en="Vietnamese">Tiếng Việt</span>
-                                <span data-lang data-lang-vi="Bản ngữ" data-lang-en="Native">Bản ngữ</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2.5" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 100%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span data-lang data-lang-vi="Tiếng Anh" data-lang-en="English">Tiếng Anh</span>
-                                <span>80%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2.5" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 80%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+   <section id="skills" class="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+  <div class="container mx-auto px-6">
+    <div class="max-w-4xl mx-auto bg-gray-800 bg-opacity-80 rounded-2xl shadow-2xl p-10">
+      <h2 class="text-3xl font-bold mb-8 text-center flex items-center justify-center gap-2">
+        <i class="fas fa-tools text-blue-400"></i> Kỹ Năng
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Technical Skills -->
+        <div>
+          <h3 class="text-xl font-semibold mb-4 flex items-center gap-2"><i class="fas fa-network-wired text-blue-400"></i> Kỹ Năng Kỹ Thuật</h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span><i class="fas fa-server text-blue-400 mr-2"></i>Cấu hình & quản trị thiết bị mạng</span>
+                <span>80%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2.5">
+                <div class="bg-gradient-to-r from-blue-400 to-blue-600 h-2.5 rounded-full" style="width: 80%"></div>
+              </div>
             </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span><i class="fas fa-search text-blue-400 mr-2"></i>Giám sát & xử lý sự cố mạng</span>
+                <span>75%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2.5">
+                <div class="bg-gradient-to-r from-purple-400 to-blue-400 h-2.5 rounded-full" style="width: 75%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span><i class="fas fa-shield-alt text-blue-400 mr-2"></i>Bảo mật mạng</span>
+                <span>90%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2.5">
+                <div class="bg-gradient-to-r from-pink-400 to-purple-600 h-2.5 rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
+        <!-- Soft Skills -->
+        <div>
+          <h3 class="text-xl font-semibold mb-4 flex items-center gap-2"><i class="fas fa-users text-blue-400"></i> Kỹ Năng Mềm</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full">Giao tiếp</span>
+            <span class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full">Làm việc nhóm</span>
+            <span class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full">Giải quyết vấn đề</span>
+            <span class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full">Quản lý thời gian</span>
+            <span class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full">Lãnh đạo</span>
+            <span class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full">Sáng tạo</span>
+          </div>
+          <h3 class="text-xl font-semibold mt-6 mb-4 flex items-center gap-2"><i class="fas fa-language text-blue-400"></i> Ngôn Ngữ</h3>
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>Tiếng Việt</span>
+                <span>Bản ngữ</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2.5">
+                <div class="bg-gradient-to-r from-blue-400 to-blue-600 h-2.5 rounded-full" style="width: 100%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>Tiếng Anh</span>
+                <span>80%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2.5">
+                <div class="bg-gradient-to-r from-purple-400 to-blue-400 h-2.5 rounded-full" style="width: 80%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
      <!-- Contact Section -->
     <section id="contact" class="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
