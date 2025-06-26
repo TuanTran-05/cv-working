@@ -3,34 +3,67 @@ let currentLang = localStorage.getItem('lang') || 'vi';
 
 // Welcome modal functionality
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, checking welcome modal...');
+    
     // Show welcome modal on first visit
     if (!localStorage.getItem('welcome_shown')) {
+        console.log('First visit detected, showing welcome modal');
         const modal = document.getElementById('welcome-modal');
         if (modal) {
-            modal.style.display = 'flex';
-            setTimeout(function() {
-                modal.classList.add('show');
-            }, 10);
+            console.log('Modal found, displaying...');
+            // Show modal with CSS class
+            modal.classList.add('show');
             document.body.style.overflow = 'hidden';
+        } else {
+            console.error('Welcome modal not found in DOM');
         }
+    } else {
+        console.log('Welcome modal already shown before');
     }
     
     // Close welcome modal
     const closeBtn = document.getElementById('close-welcome-modal');
     if (closeBtn) {
         closeBtn.addEventListener('click', function() {
+            console.log('Close button clicked');
             const modal = document.getElementById('welcome-modal');
-            modal.classList.remove('show');
-            setTimeout(function() {
-                modal.style.display = 'none';
+            if (modal) {
+                modal.classList.remove('show');
                 document.body.style.overflow = '';
-            }, 400);
-            localStorage.setItem('welcome_shown', 'true');
+                console.log('Modal hidden');
+                localStorage.setItem('welcome_shown', 'true');
+            }
+        });
+    } else {
+        console.error('Close button not found');
+    }
+    
+    // Close modal when clicking outside
+    const modal = document.getElementById('welcome-modal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                console.log('Modal background clicked, closing...');
+                modal.classList.remove('show');
+                document.body.style.overflow = '';
+                localStorage.setItem('welcome_shown', 'true');
+            }
         });
     }
     
     // Initialize language
     setLanguage(currentLang);
+    
+    // Test function - remove this in production
+    window.testWelcomeModal = function() {
+        console.log('Testing welcome modal...');
+        localStorage.removeItem('welcome_shown');
+        const modal = document.getElementById('welcome-modal');
+        if (modal) {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+    };
 });
 
 // Mobile Menu Toggle
