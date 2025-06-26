@@ -373,3 +373,41 @@ if ('IntersectionObserver' in window) {
         progressObserver.observe(bar);
     });
 }
+
+// Smooth Reveal Animation on Scroll
+const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+
+const revealOnScroll = () => {
+    const windowHeight = window.innerHeight;
+    const revealPoint = 150;
+    
+    revealElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        
+        if (elementTop < windowHeight - revealPoint) {
+            element.classList.add('active');
+        } else {
+            element.classList.remove('active');
+        }
+    });
+};
+
+window.addEventListener('scroll', revealOnScroll);
+revealOnScroll(); // Initial check on page load
+
+// Back to top button functionality (improved)
+const backToTopButton = document.getElementById('back-to-top');
+
+if (backToTopButton) {
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.remove('hidden');
+        } else {
+            backToTopButton.classList.add('hidden');
+        }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
