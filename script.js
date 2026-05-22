@@ -1,190 +1,101 @@
-// Global variables
+// ============================================
+// Trần Anh Tuấn — Personal CV Website
+// ============================================
+
+// Global state
 let currentLang = localStorage.getItem('lang') || 'vi';
 
-// Welcome modal functionality
+// ============================================
+// DOM Ready
+// ============================================
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, checking welcome modal...');
-    
-    // Show welcome modal on first visit
-    if (!localStorage.getItem('welcome_shown')) {
-        console.log('First visit detected, showing welcome modal');
-        const modal = document.getElementById('welcome-modal');
-        if (modal) {
-            console.log('Modal found, displaying...');
-            // Show modal with CSS class
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        } else {
-            console.error('Welcome modal not found in DOM');
-        }
-    } else {
-        console.log('Welcome modal already shown before');
-    }
-    
-    // Close welcome modal
-    const closeBtn = document.getElementById('close-welcome-modal');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function() {
-            console.log('Close button clicked');
-            const modal = document.getElementById('welcome-modal');
-            if (modal) {
-                modal.classList.remove('show');
-                document.body.style.overflow = '';
-                console.log('Modal hidden');
-                localStorage.setItem('welcome_shown', 'true');
-            }
-        });
-    } else {
-        console.error('Close button not found');
-    }
-    
-    // Close modal when clicking outside
-    const modal = document.getElementById('welcome-modal');
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                console.log('Modal background clicked, closing...');
-                modal.classList.remove('show');
-                document.body.style.overflow = '';
-                localStorage.setItem('welcome_shown', 'true');
-            }
-        });
-    }
-    
     // Initialize language
     setLanguage(currentLang);
     
-    // Test function - remove this in production
-    window.testWelcomeModal = function() {
-        console.log('Testing welcome modal...');
-        localStorage.removeItem('welcome_shown');
-        const modal = document.getElementById('welcome-modal');
-        if (modal) {
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        }
-    };
+    // Initialize theme
+    initTheme();
+    
+    // Welcome modal
+    initWelcomeModal();
+    
+    // Trigger initial scroll checks
+    revealOnScroll();
 });
 
-// Mobile Menu Toggle
-const mobileMenuButton = document.getElementById('mobile-menu-button');
-const mobileMenu = document.getElementById('mobile-menu');
-
-if (mobileMenuButton && mobileMenu) {
-    mobileMenuButton.addEventListener('click', function() {
-        const isExpanded = this.getAttribute('aria-expanded') === 'true';
-        
-        mobileMenu.classList.toggle('hidden');
-        this.setAttribute('aria-expanded', !isExpanded);
-        
-        // Change icon
-        const icon = this.querySelector('i');
-        if (mobileMenu.classList.contains('hidden')) {
-            icon.className = 'fas fa-bars text-2xl';
-        } else {
-            icon.className = 'fas fa-times text-2xl';
-        }
-    });
-    
-    // Close mobile menu when clicking on menu items
-    document.querySelectorAll('#mobile-menu a').forEach(link => {
-        link.addEventListener('click', function() {
-            mobileMenu.classList.add('hidden');
-            mobileMenuButton.setAttribute('aria-expanded', 'false');
-            mobileMenuButton.querySelector('i').className = 'fas fa-bars text-2xl';
-        });
-    });
-    
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(event) {
-        if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
-            mobileMenu.classList.add('hidden');
-            mobileMenuButton.setAttribute('aria-expanded', 'false');
-            mobileMenuButton.querySelector('i').className = 'fas fa-bars text-2xl';
-        }
-    });
+// ============================================
+// Theme (Dark/Light Mode)
+// ============================================
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+    }
+    updateThemeIcons(savedTheme);
 }
 
-// Back to Top Button
-const backToTop = document.getElementById('back-to-top');
-if (backToTop) {
-    window.addEventListener('scroll', function () {
-        if (window.scrollY > 300) {
-            backToTop.classList.remove('opacity-0', 'invisible');
-        } else {
-            backToTop.classList.add('opacity-0', 'invisible');
-        }
-    });
-}
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-            const target = document.querySelector(targetId);
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        }
-    });
-});
-
-// Dark mode toggle
-const darkToggle = document.getElementById('dark-toggle');
-if (darkToggle) {
-    // Load saved theme
-    if (localStorage.getItem('theme') === 'dark') {
-        document.documentElement.classList.add('dark');
-        darkToggle.innerHTML = '<i class="fas fa-sun"></i>';
+function toggleTheme() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
+    
+    if (newTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.removeAttribute('data-theme');
     }
     
-    darkToggle.addEventListener('click', function() {
-        document.documentElement.classList.toggle('dark');
-        if (document.documentElement.classList.contains('dark')) {
-            localStorage.setItem('theme', 'dark');
-            this.innerHTML = '<i class="fas fa-sun"></i>';
-        } else {
-            localStorage.setItem('theme', 'light');
-            this.innerHTML = '<i class="fas fa-moon"></i>';
-        }
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcons(newTheme);
+}
+
+function updateThemeIcons(theme) {
+    const icon = theme === 'dark' ? 'fa-sun' : 'fa-moon';
+    document.querySelectorAll('.theme-toggle i').forEach(function(el) {
+        el.className = 'fas ' + icon;
     });
 }
 
-// Language switch functionality
+// Desktop dark toggle
+const darkToggle = document.getElementById('dark-toggle');
+if (darkToggle) {
+    darkToggle.addEventListener('click', toggleTheme);
+}
+
+// Mobile dark toggle
+const darkToggleMobile = document.getElementById('dark-toggle-mobile');
+if (darkToggleMobile) {
+    darkToggleMobile.addEventListener('click', toggleTheme);
+}
+
+// ============================================
+// Language Switch
+// ============================================
 function setLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('lang', lang);
     
-    // Update language label
-    const langLabel = document.getElementById('lang-label');
-    if (langLabel) {
-        langLabel.textContent = lang === 'vi' ? 'EN' : 'VI';
-    }
+    // Update all lang labels (desktop + mobile)
+    document.querySelectorAll('.lang-label').forEach(function(el) {
+        el.textContent = lang === 'vi' ? 'EN' : 'VI';
+    });
     
     // Update document language attribute
     document.documentElement.lang = lang;
     
     // Update document title
-    const titleElement = document.querySelector('title');
+    var titleElement = document.querySelector('title');
     if (titleElement) {
-        const newTitle = titleElement.getAttribute('data-lang-' + lang);
-        if (newTitle) {
-            document.title = newTitle;
-        }
+        var newTitle = titleElement.getAttribute('data-lang-' + lang);
+        if (newTitle) document.title = newTitle;
     }
     
     // Update text content and innerHTML
-    document.querySelectorAll('[data-lang]').forEach(el => {
-        const newText = el.getAttribute('data-lang-' + lang);
+    document.querySelectorAll('[data-lang]').forEach(function(el) {
+        var newText = el.getAttribute('data-lang-' + lang);
         if (newText !== null && newText !== undefined) {
-            if (el.querySelector('span') || el.tagName === 'H1') {
+            // Use innerHTML for elements that contain HTML (like spans)
+            if (newText.indexOf('<') !== -1 || el.tagName === 'H1') {
                 el.innerHTML = newText;
             } else {
                 el.textContent = newText;
@@ -192,56 +103,171 @@ function setLanguage(lang) {
         }
     });
     
-    // Update placeholder attributes
-    document.querySelectorAll('[data-lang-placeholder-vi],[data-lang-placeholder-en]').forEach(el => {
-        const newPlaceholder = el.getAttribute('data-lang-placeholder-' + lang);
-        if (newPlaceholder !== null && newPlaceholder !== undefined) {
-            el.placeholder = newPlaceholder;
-        }
+    // Update placeholders
+    document.querySelectorAll('[data-lang-placeholder-vi],[data-lang-placeholder-en]').forEach(function(el) {
+        var newPlaceholder = el.getAttribute('data-lang-placeholder-' + lang);
+        if (newPlaceholder) el.placeholder = newPlaceholder;
     });
     
-    // Update alt attributes for images
-    document.querySelectorAll('[data-lang-alt-vi],[data-lang-alt-en]').forEach(el => {
-        const newAlt = el.getAttribute('data-lang-alt-' + lang);
-        if (newAlt !== null && newAlt !== undefined) {
-            el.alt = newAlt;
-        }
+    // Update alt attributes
+    document.querySelectorAll('[data-lang-alt-vi],[data-lang-alt-en]').forEach(function(el) {
+        var newAlt = el.getAttribute('data-lang-alt-' + lang);
+        if (newAlt) el.alt = newAlt;
     });
     
     // Update aria-label attributes
-    document.querySelectorAll('[data-lang-aria-label-vi],[data-lang-aria-label-en]').forEach(el => {
-        const newAriaLabel = el.getAttribute('data-lang-aria-label-' + lang);
-        if (newAriaLabel !== null && newAriaLabel !== undefined) {
-            el.setAttribute('aria-label', newAriaLabel);
+    document.querySelectorAll('[data-lang-aria-label-vi],[data-lang-aria-label-en]').forEach(function(el) {
+        var newAriaLabel = el.getAttribute('data-lang-aria-label-' + lang);
+        if (newAriaLabel) el.setAttribute('aria-label', newAriaLabel);
+    });
+}
+
+function toggleLanguage() {
+    setLanguage(currentLang === 'vi' ? 'en' : 'vi');
+}
+
+// Desktop lang toggle
+var langToggle = document.getElementById('lang-toggle');
+if (langToggle) {
+    langToggle.addEventListener('click', toggleLanguage);
+}
+
+// Mobile lang toggle
+var langToggleMobile = document.getElementById('lang-toggle-mobile');
+if (langToggleMobile) {
+    langToggleMobile.addEventListener('click', toggleLanguage);
+}
+
+// ============================================
+// Mobile Menu
+// ============================================
+var mobileMenuButton = document.getElementById('mobile-menu-button');
+var mobileMenu = document.getElementById('mobile-menu');
+
+if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', function() {
+        var isOpen = mobileMenu.classList.contains('open');
+        mobileMenu.classList.toggle('open');
+        this.setAttribute('aria-expanded', !isOpen);
+        
+        // Toggle icon
+        var icon = this.querySelector('i');
+        icon.className = isOpen ? 'fas fa-bars' : 'fas fa-times';
+        
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = isOpen ? '' : 'hidden';
+    });
+    
+    // Close menu on link click
+    mobileMenu.querySelectorAll('.mobile-nav-link').forEach(function(link) {
+        link.addEventListener('click', closeMobileMenu);
+    });
+    
+    // Close menu on outside click
+    document.addEventListener('click', function(event) {
+        if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+            closeMobileMenu();
         }
     });
 }
 
-const langToggle = document.getElementById('lang-toggle');
-if (langToggle) {
-    langToggle.addEventListener('click', function() {
-        setLanguage(currentLang === 'vi' ? 'en' : 'vi');
+function closeMobileMenu() {
+    if (mobileMenu && mobileMenuButton) {
+        mobileMenu.classList.remove('open');
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
+        mobileMenuButton.querySelector('i').className = 'fas fa-bars';
+        document.body.style.overflow = '';
+    }
+}
+
+// ============================================
+// Back to Top Button
+// ============================================
+var backToTop = document.getElementById('back-to-top');
+
+if (backToTop) {
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
     });
 }
 
-// Form Validation and Submission
-const contactForm = document.getElementById('contact-form');
-if (contactForm) {
-    const submitBtn = document.getElementById('submit-btn');
-    const submitText = document.getElementById('submit-text');
-    const submitLoading = document.getElementById('submit-loading');
-    const formSuccess = document.getElementById('form-success');
+// Smooth scroll for all anchor links
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        var targetId = this.getAttribute('href');
+        if (targetId === '#') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            var target = document.querySelector(targetId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    });
+});
+
+// ============================================
+// Welcome Modal
+// ============================================
+function initWelcomeModal() {
+    var modal = document.getElementById('welcome-modal');
+    var closeBtn = document.getElementById('close-welcome-modal');
     
-    // Validation functions
-    function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
+    if (!modal) return;
+    
+    // Show on first visit
+    if (!localStorage.getItem('welcome_shown')) {
+        // Small delay for smooth entrance
+        setTimeout(function() {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }, 300);
     }
     
-    function validateField(field, validationFn = null) {
-        const value = field.value.trim();
-        const errorElement = document.getElementById(field.id + '-error');
-        let isValid = true;
+    // Close button
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            closeWelcomeModal(modal);
+        });
+    }
+    
+    // Click outside to close
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) closeWelcomeModal(modal);
+    });
+}
+
+function closeWelcomeModal(modal) {
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+    localStorage.setItem('welcome_shown', 'true');
+}
+
+// ============================================
+// Form Validation & Web3Forms Submission
+// ============================================
+var contactForm = document.getElementById('contact-form');
+
+if (contactForm) {
+    var submitBtn = document.getElementById('submit-btn');
+    var submitText = document.getElementById('submit-text');
+    var submitLoading = document.getElementById('submit-loading');
+    var formSuccess = document.getElementById('form-success');
+    
+    // Validation helpers
+    function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+    
+    function validateField(field, validationFn) {
+        var value = field.value.trim();
+        var errorEl = document.getElementById(field.id + '-error');
+        var isValid = true;
         
         if (field.hasAttribute('required') && !value) {
             isValid = false;
@@ -250,34 +276,35 @@ if (contactForm) {
         }
         
         if (isValid) {
-            field.classList.remove('form-error');
-            field.classList.add('form-success');
-            errorElement.style.display = 'none';
+            field.classList.remove('error');
+            field.classList.add('success');
+            if (errorEl) errorEl.style.display = 'none';
         } else {
-            field.classList.remove('form-success');
-            field.classList.add('form-error');
-            errorElement.style.display = 'block';
+            field.classList.remove('success');
+            field.classList.add('error');
+            if (errorEl) errorEl.style.display = 'block';
         }
         
         return isValid;
     }
     
-    // Real-time validation
-    const nameField = document.getElementById('name');
-    const emailField = document.getElementById('email');
-    const subjectField = document.getElementById('subject');
-    const messageField = document.getElementById('message');
+    // Field references
+    var nameField = document.getElementById('name');
+    var emailField = document.getElementById('email');
+    var subjectField = document.getElementById('subject');
+    var messageField = document.getElementById('message');
     
-    if (nameField) nameField.addEventListener('blur', function() { validateField(this); });
-    if (emailField) emailField.addEventListener('blur', function() { validateField(this, validateEmail); });
-    if (subjectField) subjectField.addEventListener('blur', function() { validateField(this); });
-    if (messageField) messageField.addEventListener('blur', function() { validateField(this, (value) => value.length >= 10); });
+    // Real-time validation on blur
+    if (nameField) nameField.addEventListener('blur', function() { validateField(nameField); });
+    if (emailField) emailField.addEventListener('blur', function() { validateField(emailField, validateEmail); });
+    if (subjectField) subjectField.addEventListener('blur', function() { validateField(subjectField); });
+    if (messageField) messageField.addEventListener('blur', function() { validateField(messageField, function(v) { return v.length >= 10; }); });
     
-    // Clear error states on focus
-    contactForm.querySelectorAll('input, textarea').forEach(field => {
+    // Clear errors on focus
+    contactForm.querySelectorAll('.form-input').forEach(function(field) {
         field.addEventListener('focus', function() {
-            this.classList.remove('form-error');
-            const errorEl = document.getElementById(this.id + '-error');
+            this.classList.remove('error');
+            var errorEl = document.getElementById(this.id + '-error');
             if (errorEl) errorEl.style.display = 'none';
         });
     });
@@ -286,161 +313,164 @@ if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const isNameValid = validateField(nameField);
-        const isEmailValid = validateField(emailField, validateEmail);
-        const isSubjectValid = validateField(subjectField);
-        const isMessageValid = validateField(messageField, (value) => value.length >= 10);
+        // Validate all fields
+        var isNameValid = validateField(nameField);
+        var isEmailValid = validateField(emailField, validateEmail);
+        var isSubjectValid = validateField(subjectField);
+        var isMessageValid = validateField(messageField, function(v) { return v.length >= 10; });
         
-        const isFormValid = isNameValid && isEmailValid && isSubjectValid && isMessageValid;
-        
-        if (!isFormValid) {
-            const firstError = contactForm.querySelector('.form-error');
-            if (firstError) {
-                firstError.focus();
-            }
+        if (!(isNameValid && isEmailValid && isSubjectValid && isMessageValid)) {
+            var firstError = contactForm.querySelector('.form-input.error');
+            if (firstError) firstError.focus();
             return;
         }
         
         // Show loading state
         submitBtn.disabled = true;
         submitText.textContent = currentLang === 'vi' ? 'Đang gửi...' : 'Sending...';
-        submitLoading.classList.remove('hidden');
-        contactForm.classList.add('form-loading');
+        submitLoading.style.display = 'inline-block';
         
-        // Create form data
-        const formData = new FormData(contactForm);
+        // Submit to Web3Forms
+        var formData = new FormData(contactForm);
+        var jsonData = {};
+        formData.forEach(function(value, key) {
+            jsonData[key] = value;
+        });
         
-        // Submit to Google Forms
-        fetch(contactForm.action, {
+        fetch('https://api.web3forms.com/submit', {
             method: 'POST',
-            body: formData,
-            mode: 'no-cors'
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(jsonData)
         })
-        .then(() => {
-            // Show success message
-            formSuccess.classList.remove('hidden');
-            contactForm.reset();
-            
-            // Remove success classes from fields
-            contactForm.querySelectorAll('.form-success').forEach(field => {
-                field.classList.remove('form-success');
-            });
-            
-            // Scroll to success message
-            formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                formSuccess.classList.add('hidden');
-            }, 5000);
+        .then(function(response) { return response.json(); })
+        .then(function(result) {
+            if (result.success) {
+                // Show success
+                formSuccess.style.display = 'flex';
+                contactForm.reset();
+                
+                // Remove success classes from fields
+                contactForm.querySelectorAll('.form-input.success').forEach(function(f) {
+                    f.classList.remove('success');
+                });
+                
+                // Scroll to success message
+                formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Hide after 5 seconds
+                setTimeout(function() {
+                    formSuccess.style.display = 'none';
+                }, 5000);
+            } else {
+                throw new Error(result.message || 'Submission failed');
+            }
         })
-        .catch((error) => {
-            console.error('Error:', error);
-            alert(currentLang === 'vi' ? 'Có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại sau.' : 'An error occurred while sending the message. Please try again later.');
+        .catch(function(error) {
+            console.error('Form submission error:', error);
+            alert(currentLang === 'vi'
+                ? 'Có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại sau.'
+                : 'An error occurred while sending the message. Please try again later.'
+            );
         })
-        .finally(() => {
-            // Reset button state
+        .finally(function() {
+            // Reset button
             submitBtn.disabled = false;
-            submitText.textContent = submitText.getAttribute('data-lang-' + currentLang);
-            submitLoading.classList.add('hidden');
-            contactForm.classList.remove('form-loading');
+            submitText.textContent = submitText.getAttribute('data-lang-' + currentLang) ||
+                (currentLang === 'vi' ? 'Gửi Tin Nhắn' : 'Send Message');
+            submitLoading.style.display = 'none';
         });
     });
 }
 
-// Keyboard navigation improvements
+// ============================================
+// Keyboard Navigation
+// ============================================
 document.addEventListener('keydown', function(e) {
+    // Escape closes mobile menu and welcome modal
     if (e.key === 'Escape') {
-        const menu = document.getElementById('mobile-menu');
-        const button = document.getElementById('mobile-menu-button');
+        closeMobileMenu();
         
-        if (menu && button && !menu.classList.contains('hidden')) {
-            menu.classList.add('hidden');
-            button.setAttribute('aria-expanded', 'false');
-            button.querySelector('i').className = 'fas fa-bars text-2xl';
-            button.focus();
+        var modal = document.getElementById('welcome-modal');
+        if (modal && modal.classList.contains('show')) {
+            closeWelcomeModal(modal);
         }
     }
 });
 
-// Intersection Observer for animations
-if ('IntersectionObserver' in window) {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+// ============================================
+// Scroll Reveal Animations
+// ============================================
+var revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+
+function revealOnScroll() {
+    var windowHeight = window.innerHeight;
+    var revealPoint = 120;
     
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-    
-    // Observe sections for fade-in animation
-    document.querySelectorAll('section').forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(20px)';
-        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(section);
+    revealElements.forEach(function(element) {
+        var elementTop = element.getBoundingClientRect().top;
+        if (elementTop < windowHeight - revealPoint) {
+            element.classList.add('active');
+        }
     });
-    
-    // Progress bar animation
-    const progressObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
-                const progressBar = entry.target.querySelector('.progress-bar');
-                if (progressBar) {
-                    const width = progressBar.style.width;
-                    progressBar.style.setProperty('--progress-width', width);
-                    progressBar.classList.add('animated');
-                    entry.target.classList.add('animated');
+}
+
+window.addEventListener('scroll', revealOnScroll, { passive: true });
+
+// ============================================
+// Progress Bar Animations (IntersectionObserver)
+// ============================================
+if ('IntersectionObserver' in window) {
+    var progressObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                var fill = entry.target.querySelector('.skill-bar-fill');
+                if (fill && !fill.classList.contains('animated')) {
+                    var width = fill.style.width;
+                    fill.style.setProperty('--progress-width', width);
+                    fill.style.width = '0';
+                    // Trigger reflow then animate
+                    requestAnimationFrame(function() {
+                        requestAnimationFrame(function() {
+                            fill.classList.add('animated');
+                        });
+                    });
                 }
+                progressObserver.unobserve(entry.target);
             }
         });
     }, { threshold: 0.5 });
     
-    document.querySelectorAll('[role="progressbar"]').forEach(bar => {
+    document.querySelectorAll('[role="progressbar"]').forEach(function(bar) {
         progressObserver.observe(bar);
     });
 }
 
-// Smooth Reveal Animation on Scroll
-const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+// ============================================
+// Active Nav Link on Scroll
+// ============================================
+var sections = document.querySelectorAll('section[id]');
+var navLinks = document.querySelectorAll('.nav-link');
 
-const revealOnScroll = () => {
-    const windowHeight = window.innerHeight;
-    const revealPoint = 150;
+function updateActiveNav() {
+    var scrollPos = window.scrollY + 100;
     
-    revealElements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
+    sections.forEach(function(section) {
+        var sectionTop = section.offsetTop;
+        var sectionHeight = section.offsetHeight;
+        var sectionId = section.getAttribute('id');
         
-        if (elementTop < windowHeight - revealPoint) {
-            element.classList.add('active');
-        } else {
-            element.classList.remove('active');
+        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+            navLinks.forEach(function(link) {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + sectionId) {
+                    link.classList.add('active');
+                }
+            });
         }
-    });
-};
-
-window.addEventListener('scroll', revealOnScroll);
-revealOnScroll(); // Initial check on page load
-
-// Back to top button functionality (improved)
-const backToTopButton = document.getElementById('back-to-top');
-
-if (backToTopButton) {
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            backToTopButton.classList.remove('hidden');
-        } else {
-            backToTopButton.classList.add('hidden');
-        }
-    });
-    
-    backToTopButton.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
+
+window.addEventListener('scroll', updateActiveNav, { passive: true });
